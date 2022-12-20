@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "362041200744",
+    "project_id": "laundry-guru-50b7a",
+    "storage_bucket": "laundry-guru-50b7a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:362041200744:android:5d6c891d5429d34391abdd",
+        "android_client_info": {
+          "package_name": "com.example.laundry_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "362041200744-hatq94r3s3nedr6sb3onou7b32orf3ij.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCZN5nMHQNUzbOKVT1OukMQJyEhTs-U0iU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "362041200744-hatq94r3s3nedr6sb3onou7b32orf3ij.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
