@@ -27,7 +27,7 @@ class Basket extends StatelessWidget {
             children: const <Widget>[
               SizedBox(width: 20,),
               AddBasketCard(), //New basket adding card
-              
+
               SizedBox(width: 10,),
               OrderCard() //Previous orders card list
             ],
@@ -60,8 +60,9 @@ class OrderCard extends StatelessWidget {
 
     return SizedBox(
       height: 140,
-      child: ListView.separated(itemCount: order.length, scrollDirection: Axis.horizontal, shrinkWrap: true, itemBuilder: (BuildContext context, int index){
-        return Container(width: 180, decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.white), 
+      child: ListView.separated(itemCount: order.length, scrollDirection: Axis.horizontal, shrinkWrap: true, 
+        itemBuilder: (BuildContext context, int index){
+          return Container(width: 180, decoration: BoxDecoration(borderRadius: BorderRadius.circular(20), color: Colors.white), 
                  padding: EdgeInsets.all(20),
                  child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,

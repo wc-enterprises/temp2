@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:laundry_app/screens/address_screen/address_screen.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -12,7 +13,11 @@ class Header extends StatelessWidget {
       child: Row( //header
         crossAxisAlignment: CrossAxisAlignment.end,
         children: <Widget>[
-          TextButton(onPressed: (){}, child: const Text("Home", style: TextStyle(color: Colors.black, decoration: TextDecoration.underline)),),
+          TextButton(
+            onPressed: (){
+              Navigator.push(context, MaterialPageRoute(builder: ((context) => Address_Page())));
+            }, 
+            child: const Text("Home", style: TextStyle(color: Colors.black, decoration: TextDecoration.underline)),),
           const Spacer(),
           CircleAvatar(
                 radius: 16,
