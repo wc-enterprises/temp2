@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
+import '../../dummy_data.dart';
+
 class Address_Page extends StatefulWidget {
   const Address_Page({Key? key}) : super(key: key);
 
@@ -18,7 +20,7 @@ class _Address_PageState extends State<Address_Page> {
     
 
     return Scaffold(
-      appBar: AppBar(leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_left_rounded)),centerTitle: true,foregroundColor: Theme.of(context).secondaryHeaderColor, title: Text("Your Location"), elevation: 0, backgroundColor: Colors.transparent,),
+      appBar: AppBar(leading: IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back)),centerTitle: true,foregroundColor: Theme.of(context).secondaryHeaderColor, title: Text("Your Location"), elevation: 0, backgroundColor: Colors.transparent,),
       body: SafeArea(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -232,11 +234,11 @@ class SavedLocation extends StatelessWidget {
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   mainAxisAlignment: MainAxisAlignment.center,
-                  children: const [
+                  children: [
                     SizedBox(height: 20,),
                     //Dummy data
-                    Text("Home", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800),),
-                    Text("Askhaya Belvedre, 603 \nGuduvanchery", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
+                    Text(address[index].addressTitle, style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800),),
+                    Text("${address[index].streetOrAppartmentName}, \n${address[index].doorNumber} \n${address[index].area}", style: TextStyle(fontSize: 12, fontWeight: FontWeight.w400),),
                     SizedBox(height: 20,),
                   ],
                 ),
@@ -246,7 +248,7 @@ class SavedLocation extends StatelessWidget {
           separatorBuilder: (BuildContext context, int index){
             return Divider();
             }, 
-          itemCount: 100
+          itemCount: address.length,
         ),
       ),
     );
@@ -281,3 +283,24 @@ class _AddressButtonState extends State<AddressButton> {
     );
   }
 }
+/*
+List<String> saved_address = ["Guduvannchery","Urappakkam","Potheri",];
+String dropdownValue = saved_address.first;
+
+ DropdownButton(
+                  value: dropdownValue,
+                  icon: const Icon(Icons.arrow_downward),
+                  elevation: 0,
+                  isExpanded: true,
+                  items: saved_address.map<DropdownMenuItem<String>>((String value) {
+                    return DropdownMenuItem<String>(
+                      value: value,
+                      child: Text(value),
+                    );
+                  }).toList(), 
+                  onChanged: (String? value) {
+                    setState(() {
+                    dropdownValue = value!;
+                    });
+                  },
+                ),*/

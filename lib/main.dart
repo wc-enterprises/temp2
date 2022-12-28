@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'dart:async';  
 import 'package:laundry_app/screens/home_screen/home_screen.dart';
 import 'package:laundry_app/screens/login_screen/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,6 +9,7 @@ import 'package:laundry_app/screens/order_screen.dart/order_screen.dart';
 import 'package:laundry_app/screens/order_screen.dart/order_screen1.dart';
 import 'package:laundry_app/screens/order_screen.dart/order_screen2.dart';
 import 'package:laundry_app/screens/order_screen.dart/order_screen3.dart';
+import 'package:laundry_app/screens/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
@@ -16,6 +18,7 @@ void main() async {
   print("firebase initialised");
   runApp(const MyApp());
 }
+
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
@@ -56,9 +59,11 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.w300,), 
           
         ),),
-        home: HomeScreen());
+        home: SplashScreen());
   }
 }
+
+
 // ChangeNotifierProvider<OrderScreen1ViewModel>(
 //           create: ((context) {
 //             return OrderScreen1ViewModel();
@@ -77,3 +82,8 @@ class MyApp extends StatelessWidget {
 //             return SafeArea(child: LoginScreen());
 //           }),
 //         )
+
+
+
+
+
