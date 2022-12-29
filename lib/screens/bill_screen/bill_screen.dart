@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:laundry_app/dummy_data.dart';
 import 'package:laundry_app/models/order_model.dart';
 import 'package:laundry_app/widgets/bill.dart';
 import 'package:laundry_app/widgets/bill_card_updated.dart';
@@ -16,6 +17,12 @@ class BillScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    String state;
+    if(singleOrder.status == Status.orderPlaced){
+      state = "washing";
+    }else{
+      state = "Pickup";
+    }
     return Scaffold(
       backgroundColor: Color(0xff212427),
       appBar: AppBar(
@@ -42,8 +49,8 @@ class BillScreen extends StatelessWidget {
                 child: Container(
                   height: 300,
                   width: 300,
-                  color: Colors.white,
-                  child: Center(child: Text("Rive Animation Coming Soon")),
+                  
+                  child: Center(child: RiveAnimation.asset("assets/Washly.riv", artboard: state,)),
                 ),
               ),
               Padding(
