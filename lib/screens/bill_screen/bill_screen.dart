@@ -5,6 +5,7 @@ import 'package:laundry_app/widgets/bill_card_updated.dart';
 
 import '../../widgets/bill_header.dart';
 import '../../widgets/bill_screen_buttons.dart';
+import 'package:rive/rive.dart';
 
 class BillScreen extends StatelessWidget {
   
@@ -31,6 +32,12 @@ class BillScreen extends StatelessWidget {
               BillScreenButtons(),
               
               //Rive animation Area
+              //Rive file is in the assets, 
+              //artBoard name for onGoing process state is "washing"
+              //artBoard name for pickup and delivery process state is "Pickup"
+              //artBoard name should be correct**
+              //artBoard washing is pingpong animation
+              //artBoard Pickup is loop animation
               Center(
                 child: Container(
                   height: 300,
