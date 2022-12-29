@@ -19,57 +19,71 @@ class BillCardUpdated extends StatelessWidget {
     }
     return Padding(
       padding: EdgeInsets.all(35),
-      child: Container(
-          padding: EdgeInsets.all(18),
-          decoration: const BoxDecoration(
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(12), topRight: Radius.circular(18)),
-            color: Colors.white,
-          ),
-          
-          width: MediaQuery.of(context).size.width,
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              const Padding(
-                  padding: EdgeInsets.only(top: 10, left: 5, bottom: 10),
-                  child: Text("Shankar",
-                      style: TextStyle(fontWeight: FontWeight.w600))),
-              DottedLine(
-                dashColor: Color(0xffC2BFD0),
-                dashLength: 5,
-              ),
-              Container(
-                child: Column(children: serviceText()),
+      child: Column(
+        children: [
+          Container(
+              padding: EdgeInsets.all(18),
+              decoration: const BoxDecoration(
+                borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(12), topRight: Radius.circular(18)),
+                color: Colors.white,
               ),
               
-                
-              // serviceText("Regular wash", "No of pieces:10"),
-              // serviceText("Iron", "No of pieces:10"),
-              // serviceText("Dry clean", "No of pieces:10"),
-              text(
-                  "Pick-up address", orderDetails.pickUpAddress.addressTitle),
-              text("Pick-up date and time", orderDetails.pickTimeSlot),
-              text("Delivery address",
-                  orderDetails.deliveryAddress.addressTitle),
-              text("Pick-up date and time", orderDetails.deliveryTimeSlot),
-              SizedBox(
-                height: 20,
-              ),
-              DottedLine(
-                dashColor: Color(0xffC2BFD0),
-                dashLength: 5,
-              ),
-              
+              width: MediaQuery.of(context).size.width,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Padding(
+                      padding: EdgeInsets.only(top: 10, left: 5, bottom: 10),
+                      child: Text("Shankar",
+                          style: TextStyle(fontWeight: FontWeight.w600))),
+                  DottedLine(
+                    dashColor: Color(0xffC2BFD0),
+                    dashLength: 5,
+                  ),
+                  Container(
+                    child: Column(children: serviceText()),
+                  ),
+                  
+                    
+                  // serviceText("Regular wash", "No of pieces:10"),
+                  // serviceText("Iron", "No of pieces:10"),
+                  // serviceText("Dry clean", "No of pieces:10"),
+                  text(
+                      "Pick-up address", orderDetails.pickUpAddress.addressTitle),
+                  text("Pick-up date and time", orderDetails.pickTimeSlot),
+                  text("Delivery address",
+                      orderDetails.deliveryAddress.addressTitle),
+                  text("Pick-up date and time", orderDetails.deliveryTimeSlot),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  DottedLine(
+                    dashColor: Color(0xffC2BFD0),
+                    dashLength: 5,
+                  ),
+                  
 
-              billGenerated ? payCard() :  billWaitMessage(),
-              
-            ],
-          )),
+                  billGenerated ? payCard() :  billWaitMessage(),
+
+                  
+                ],
+              )),
+              // Triangle cut effect in the bill
+              ClipPath(
+                clipper: PointsClipper(),
+                clipBehavior: Clip.hardEdge,
+                child: Container(
+                  height: 50,
+                  color: Colors.white,
+                ),
+              ),
+        ],
+      ),
     );
   }
 
-  Widget billWaitMessage() => Center(child: Padding(padding: EdgeInsets.all(10), child: Text("Bill will generate after pick-up", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13, color: Color(0xff11044C)))));
+  Widget billWaitMessage() => Center(child: Padding(padding: EdgeInsets.fromLTRB(10, 10, 10, 0), child: Text("Bill will generate after pick-up", style: TextStyle(fontWeight: FontWeight.w600, fontSize: 13, color: Color(0xff11044C)))));
 
   Container payCard() {
     return Container(
@@ -89,9 +103,9 @@ class BillCardUpdated extends StatelessWidget {
                     Text("Total Payable Amount:", style:
                         TextStyle(fontWeight: FontWeight.w600, fontSize: 13, color: Color(0xff11044C))),
                         Padding(
-                          padding: EdgeInsets.all(20),
+                          padding: EdgeInsets.fromLTRB(20, 20, 20, 0),
                           child: Center(child: ElevatedButton(onPressed: (){}, child: Text("Pay"), style: ButtonStyle(elevation: MaterialStateProperty.all(0) ,backgroundColor: MaterialStateProperty.all(Color(0xffD7EF7D)),),))),
-                    SizedBox(height: 40),
+                    
                     
                   ],
                 ),

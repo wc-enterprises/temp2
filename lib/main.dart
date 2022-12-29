@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.w300,), 
           
         ),),
-        home: SplashScreen());
+        home: LoginScreen());
   }
 }
 

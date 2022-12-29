@@ -49,6 +49,8 @@ dependencies:
   dotted_line: ^3.1.0
   dotted_border: ^2.0.0+3
   animated_splash: ^1.0.0
+  pinput: ^2.2.20
+
 dev_dependencies:
   flutter_test:
     sdk: flutter
