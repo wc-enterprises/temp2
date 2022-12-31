@@ -52,7 +52,7 @@ class BillCard extends StatelessWidget {
                     orderDetails.deliveryAddress.addressTitle),
                 text("Pick-up date and time", orderDetails.deliveryTimeSlot),
                 const Padding(
-                  padding: EdgeInsets.only(top: 20),
+                  padding: EdgeInsets.only(top: 30),
                   child: Text(
                       "Your total bill amount will be updated in the orders section after our executive collects your order",
                       style: TextStyle(

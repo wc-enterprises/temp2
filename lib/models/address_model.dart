@@ -5,7 +5,7 @@ class Address {
   String doorNumber;
   String? streetOrAppartmentName;
   String area;
-  String district;
+  String? district;
   String pincode;
   String? landmark;
   Address({
@@ -14,7 +14,7 @@ class Address {
     required this.streetOrAppartmentName,
     required this.area,
     this.landmark,
-    required this.district,
+    this.district,
     required this.pincode,
   });
 

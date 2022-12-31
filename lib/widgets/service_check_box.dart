@@ -27,7 +27,7 @@ class _ServiceCheckboxState extends State<ServiceCheckbox> {
               title: Text(widget.service[index].service.toString(),
                   style: TextStyle(
                       color: widget.service[index].selected == true
-                          ? Color(0xff3B4158)
+                          ? Color.fromARGB(255, 17, 23, 46)
                           : Colors.white,
                       fontSize: 14)),
               autofocus: false,

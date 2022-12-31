@@ -51,14 +51,45 @@ class _OrderScreen2State extends State<OrderScreen2> {
   Widget build(BuildContext context) {
     return Scaffold(
         backgroundColor: Color(0xff3B4158),
-        body:
-            // Consumer<OrderScreen1ViewModel>(
-            //   builder: ((context, _, child) {
-            //     return
-            SafeArea(
-                child: SingleChildScrollView(
+        body: SafeArea(
+            child: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 24.0, right: 24, top: 90, bottom: 24),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 16),
+                      child: Text("Preparing your basket",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white)),
+                    ),
+                    RichText(
+                      text: const TextSpan(
+                        text: 'Book your delivery service, ',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                            color: Color(0xffD9D2D2)),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text:
+                                  'select your convenient time and address for pick-up and drop',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400, height: 1.5)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
               AddressPicker(
                 addresses: address,
                 title: "Pick-up address",
@@ -89,10 +120,10 @@ class _OrderScreen2State extends State<OrderScreen2> {
                       });
                       Provider.of<OrderScreen1ViewModel>(context, listen: false)
                           .filterTimeSlot(timeSlot);
-                      // Navigator.push(
-                      //     context,
-                      //     MaterialPageRoute(
-                      //         builder: ((context) => OrderScreen3())));
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                              builder: ((context) => OrderScreen3())));
                     },
                     child: Padding(
                         padding: EdgeInsets.only(
@@ -120,8 +151,6 @@ class _OrderScreen2State extends State<OrderScreen2> {
               )
             ],
           ),
-          //   ));
-          // }
         )));
   }
 }

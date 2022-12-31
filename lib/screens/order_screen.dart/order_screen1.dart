@@ -30,11 +30,20 @@ class _OrderScreen1State extends State<OrderScreen1> {
         List<Service> selectedList =
             context.watch<OrderScreen1ViewModel>().selectedServices;
         return Scaffold(
+          appBar: AppBar(
+            backgroundColor: Colors.transparent,
+            shadowColor: Colors.transparent,
+            leading: GestureDetector(
+                onTap: () {
+                  Navigator.pop(context);
+                },
+                child: Icon(Icons.chevron_left)),
+          ),
           backgroundColor: Color(0xff3B4158),
           body: SafeArea(
             child: Padding(
               padding: const EdgeInsets.only(
-                  top: 120, left: 30, right: 30, bottom: 30),
+                  top: 60, left: 30, right: 30, bottom: 30),
               child: SingleChildScrollView(
                 child: Column(
                     mainAxisSize: MainAxisSize.min,

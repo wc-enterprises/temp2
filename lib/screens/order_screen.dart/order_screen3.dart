@@ -47,7 +47,87 @@ class OrderScreen3 extends StatelessWidget {
     return Scaffold(
         backgroundColor: Color(0xff3B4158),
         body: SafeArea(
-          child: BillCard(orderDetails: orderdetails[0]),
+          child: Column(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(
+                    left: 24.0, right: 24, top: 90, bottom: 16),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const Padding(
+                      padding: EdgeInsets.only(bottom: 16),
+                      child: Text("Laundry basket prepared",
+                          textAlign: TextAlign.left,
+                          style: TextStyle(
+                              fontSize: 22,
+                              fontWeight: FontWeight.w700,
+                              color: Colors.white)),
+                    ),
+                    RichText(
+                      text: const TextSpan(
+                        text: '',
+                        style: TextStyle(
+                            fontWeight: FontWeight.w700,
+                            fontSize: 14,
+                            color: Color(0xffD9D2D2)),
+                        children: <TextSpan>[
+                          TextSpan(
+                              text:
+                                  'Thank you for your laundry order! Your clothes will be clean and fresh in no time',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.w400, height: 1.5)),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              BillCard(orderDetails: orderdetails[0]),
+              Padding(
+                padding: const EdgeInsets.only(left: 24.0, bottom: 24),
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.pop(context);
+                  },
+                  child: Row(
+                    children: [
+                      Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                        size: 20,
+                      ),
+                      SizedBox(
+                        width: 8,
+                      ),
+                      Text(
+                        "Go back and edit",
+                        style: TextStyle(color: Colors.white),
+                      )
+                    ],
+                  ),
+                ),
+              ),
+              Center(
+                child: ElevatedButton(
+                    style: ButtonStyle(
+                      shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                          RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10.0),
+                      )),
+                      backgroundColor:
+                          MaterialStatePropertyAll<Color>(Color(0xff486D98)),
+                    ),
+                    onPressed: () {
+                      Navigator.pop(context);
+                    },
+                    child: Padding(
+                        padding: EdgeInsets.only(
+                            top: 13, bottom: 13, left: 43, right: 43),
+                        child: Text("Place Order"))),
+              ),
+            ],
+          ),
         ));
   }
 }
