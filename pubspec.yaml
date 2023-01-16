@@ -48,6 +48,15 @@ dependencies:
   flutter_custom_clippers: ^2.0.0
   dotted_line: ^3.1.0
   dotted_border: ^2.0.0+3
+  animated_splash: ^1.0.0
+  pinput: ^2.2.20
+  rive: ^0.10.0
+  isar: ^3.0.5
+  isar_flutter_libs: ^3.0.5
+  isar_generator: ^3.0.5
+  uuid: ^3.0.7
+  cart_stepper: ^4.0.0
+  customizable_counter: ^1.0.4
 
 dev_dependencies:
   flutter_test:
@@ -59,6 +68,7 @@ dev_dependencies:
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
   flutter_lints: ^2.0.0
+  build_runner: ^2.3.3
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec

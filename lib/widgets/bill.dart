@@ -87,7 +87,7 @@ class BillCard extends StatelessWidget {
               margin: EdgeInsets.only(top: 10),
               child: Row(
                 children: [
-                  Text(orderDetails.selectedService[index].service.name,
+                  Text(orderDetails.selectedService[index].service,
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,

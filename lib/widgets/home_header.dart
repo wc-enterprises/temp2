@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:laundry_app/screens/address_screen/address_screen.dart';
 
@@ -22,7 +23,7 @@ class Header extends StatelessWidget {
             child: Container(
                 child: Row(
               children: [
-                const Text("Home",
+                const Text("Address",
                     style: TextStyle(
                       color: Colors.black,
                     )),
@@ -35,7 +36,9 @@ class Header extends StatelessWidget {
               radius: 16,
               backgroundColor: Theme.of(context).secondaryHeaderColor,
               child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+                    FirebaseAuth.instance.signOut();
+                  },
                   icon: const Icon(
                     size: 16,
                     Icons.shopping_bag_outlined,

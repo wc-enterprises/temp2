@@ -2,6 +2,7 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:laundry_app/models/service_model.dart';
+import 'package:laundry_app/screens/home_screen/home_screen.dart';
 import 'package:laundry_app/screens/order_screen.dart/orderScreen1_viewmodel.dart';
 import 'package:laundry_app/screens/order_screen.dart/order_screen2.dart';
 import 'package:laundry_app/widgets/service_check_box.dart';
@@ -9,25 +10,21 @@ import 'package:provider/provider.dart';
 import 'dart:async';
 
 class OrderScreen1 extends StatefulWidget {
-  OrderScreen1({super.key});
+  List<Service> service;
+  OrderScreen1({super.key, required this.service});
 
   @override
   State<OrderScreen1> createState() => _OrderScreen1State();
 }
 
 class _OrderScreen1State extends State<OrderScreen1> {
-  List<Service> sampleService = [
-    Service(amount: 100, service: Services.washing),
-    Service(amount: 100, service: Services.dryCleaning),
-    Service(amount: 200, service: Services.ironing),
-    Service(amount: 130, service: Services.washAndIron)
-  ];
+  List<Service>? selectedService;
 
   @override
   Widget build(BuildContext context) {
     return Consumer<OrderScreen1ViewModel>(
       builder: ((context, _, child) {
-        List<Service> selectedList =
+        selectedService =
             context.watch<OrderScreen1ViewModel>().selectedServices;
         return Scaffold(
           appBar: AppBar(
@@ -35,7 +32,8 @@ class _OrderScreen1State extends State<OrderScreen1> {
             shadowColor: Colors.transparent,
             leading: GestureDetector(
                 onTap: () {
-                  Navigator.pop(context);
+                  Navigator.push(context,
+                      MaterialPageRoute(builder: ((context) => HomeScreen())));
                 },
                 child: Icon(Icons.chevron_left)),
           ),
@@ -72,7 +70,7 @@ class _OrderScreen1State extends State<OrderScreen1> {
                           ],
                         ),
                       ),
-                      ServiceCheckbox(service: sampleService),
+                      ServiceCheckbox(service: widget.service),
                       SizedBox(height: 23),
                       Center(
                         child: ElevatedButton(
@@ -86,11 +84,13 @@ class _OrderScreen1State extends State<OrderScreen1> {
                                   Color(0xff486D98)),
                             ),
                             onPressed: () {
-                              context
-                                  .read<OrderScreen1ViewModel>()
-                                  .selectService(sampleService);
-
-                              if (selectedList.length > 0) {
+                              widget.service.forEach((element) {
+                                Provider.of<OrderScreen1ViewModel>(context,
+                                        listen: false)
+                                    .selectService(widget.service);
+                              });
+                              if (selectedService!.length > 0 &&
+                                  checkService() == true) {
                                 Navigator.push(context, MaterialPageRoute(
                                   builder: (context) {
                                     return ChangeNotifierProvider<
@@ -104,10 +104,20 @@ class _OrderScreen1State extends State<OrderScreen1> {
                                     );
                                   },
                                 ));
-                              } else
-                                print("no service selected");
+                              } else {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                    duration: Duration(seconds: 3),
+                                    backgroundColor: Color(0xff292F34),
+                                    content: Text(
+                                      "Please select the service and number of items",
+                                      style: TextStyle(color: Colors.white),
+                                    ),
+                                  ),
+                                );
+                              }
                             },
-                            child: Padding(
+                            child: const Padding(
                                 padding: EdgeInsets.only(
                                     top: 13, bottom: 13, left: 43, right: 43),
                                 child: Text("Next"))),
@@ -119,5 +129,15 @@ class _OrderScreen1State extends State<OrderScreen1> {
         );
       }),
     );
+  }
+
+  bool checkService() {
+    bool check = true;
+    for (var service in selectedService!) {
+      if (service.piece == null) {
+        check = false;
+      }
+    }
+    return check;
   }
 }

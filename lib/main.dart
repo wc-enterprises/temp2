@@ -1,4 +1,7 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:laundry_app/isar_service.dart';
+import 'dart:async';
 import 'package:laundry_app/screens/home_screen/home_screen.dart';
 import 'package:laundry_app/screens/login_screen/login_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,17 +11,50 @@ import 'package:laundry_app/screens/order_screen.dart/order_screen.dart';
 import 'package:laundry_app/screens/order_screen.dart/order_screen1.dart';
 import 'package:laundry_app/screens/order_screen.dart/order_screen2.dart';
 import 'package:laundry_app/screens/order_screen.dart/order_screen3.dart';
+import 'package:laundry_app/screens/splash_screen/splash_screen.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp();
   print("firebase initialised");
-  runApp(const MyApp());
+
+  runApp(ChangeNotifierProvider<OrderScreen1ViewModel>(
+    create: ((context) {
+      return OrderScreen1ViewModel();
+    }),
+    builder: ((context, child) {
+      return MyApp();
+    }),
+  ));
+  //runApp(const MyApp());
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   const MyApp({super.key});
+
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  late StreamSubscription<User?> user;
+
+  @override
+  void initState() {
+    user = FirebaseAuth.instance.authStateChanges().listen((user) {});
+    // FirebaseAuth.instance.signOut();
+
+    // TODO: implement initState
+    IsarService().openIsar();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    user.cancel();
+    super.dispose();
+  }
 
   // This widget is the root of your application.
   @override
@@ -34,10 +70,10 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Color(0xffF5F4EE),
           textTheme: const TextTheme(
             headline1: TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 22.0,
-              fontWeight: FontWeight.bold,
-              color: Color(0xff11044C)),
+                fontFamily: 'Roboto',
+                fontSize: 22.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xff11044C)),
             headline2: TextStyle(
               fontFamily: 'Roboto',
               fontSize: 18,
@@ -45,20 +81,23 @@ class MyApp extends StatelessWidget {
               fontWeight: FontWeight.w300,
             ),
             headline3: TextStyle(
-              fontFamily: 'Roboto',
-              fontSize: 20.0,
-              fontWeight: FontWeight.bold,
-              color: Color(0xff11044C)),
+                fontFamily: 'Roboto',
+                fontSize: 20.0,
+                fontWeight: FontWeight.bold,
+                color: Color(0xff11044C)),
             labelMedium: TextStyle(
               fontFamily: 'Roboto',
               fontSize: 16,
               color: Colors.white,
-              fontWeight: FontWeight.w300,), 
-          
-        ),),
-        home: HomeScreen());
+              fontWeight: FontWeight.w300,
+            ),
+          ),
+        ),
+        home: SplashScreen());
   }
 }
+
+
 // ChangeNotifierProvider<OrderScreen1ViewModel>(
 //           create: ((context) {
 //             return OrderScreen1ViewModel();
@@ -77,3 +116,8 @@ class MyApp extends StatelessWidget {
 //             return SafeArea(child: LoginScreen());
 //           }),
 //         )
+
+
+
+
+

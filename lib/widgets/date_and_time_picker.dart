@@ -2,10 +2,18 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
 import 'package:date_picker_timeline/date_picker_timeline.dart';
+import 'package:laundry_app/screens/order_screen.dart/orderScreen1_viewmodel.dart';
+import 'package:provider/provider.dart';
 
 class DateTimeSlotPicker extends StatefulWidget {
   List<String> timeSlots;
-  DateTimeSlotPicker({super.key, required this.timeSlots});
+  String title;
+  int day;
+  DateTimeSlotPicker(
+      {super.key,
+      required this.timeSlots,
+      required this.day,
+      required this.title});
 
   @override
   State<DateTimeSlotPicker> createState() => _DateTimeSlotPickerState();
@@ -16,6 +24,14 @@ class _DateTimeSlotPickerState extends State<DateTimeSlotPicker> {
 
   DateTime _selectedDay = DateTime.now();
   DatePickerController _controller = DatePickerController();
+  DateTime initialDate = DateTime.now();
+  @override
+  void initState() {
+    initialDate = initialDate.add(Duration(days: widget.day));
+    // TODO: implement initState
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -35,7 +51,7 @@ class _DateTimeSlotPickerState extends State<DateTimeSlotPicker> {
               padding: EdgeInsets.only(top: 21, left: 10, bottom: 21),
               child: Row(children: [
                 Text(
-                  "Select Time-slot",
+                  widget.title,
                   style: TextStyle(
                       color: Colors.white,
                       fontSize: 14,
@@ -52,12 +68,12 @@ class _DateTimeSlotPickerState extends State<DateTimeSlotPicker> {
           children: [
             Container(
               child: DatePicker(
-                DateTime.now(),
+                initialDate,
                 width: 60,
                 height: 80,
                 monthTextStyle: TextStyle(color: Colors.white),
                 controller: _controller,
-                initialSelectedDate: DateTime.now(),
+                initialSelectedDate: initialDate,
                 selectionColor: Color(0xff486D98),
                 dateTextStyle: TextStyle(color: Colors.white, fontSize: 10),
                 dayTextStyle: TextStyle(color: Colors.white, fontSize: 10),
@@ -67,10 +83,20 @@ class _DateTimeSlotPickerState extends State<DateTimeSlotPicker> {
                   //  New date selected
                   setState(() {
                     _selectedDay = date;
+                    var formattedDate =
+                        "${date.day}-${date.month}-${date.year}";
+
+                    if (widget.title == "Select pick-up time slot") {
+                      Provider.of<OrderScreen1ViewModel>(context, listen: false)
+                          .selectPickupDate(formattedDate.toString());
+                    }
+                    if (widget.title == "Select delivery time slot") {
+                      Provider.of<OrderScreen1ViewModel>(context, listen: false)
+                          .selectDeliveryDate(formattedDate.toString());
+                    } else {
+                      print("/////////////////////////");
+                    }
                   });
-                  print(date);
-                  print(date.hour);
-                  print(DateTime.now());
                 },
               ),
             ),
@@ -93,10 +119,8 @@ class _DateTimeSlotPickerState extends State<DateTimeSlotPicker> {
             widget.timeSlots.length,
             (index) => InkWell(
               onTap: () {
-                print("timeSlot selected");
                 setState(() {
                   selectedIndex = index;
-                  print(selectedIndex);
                 });
               },
               child: Container(

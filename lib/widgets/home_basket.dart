@@ -5,8 +5,15 @@ import 'package:laundry_app/screens/order_screen.dart/order_screen.dart';
 import 'package:laundry_app/screens/order_screen.dart/order_screen1.dart';
 import 'package:provider/provider.dart';
 
+import '../models/address_model.dart';
+import '../models/order_model.dart';
+import '../models/service_model.dart';
+import '../screens/bill_screen/bill_screen.dart';
+import '../screens/view_all_screen/view_all_screen.dart';
+import '../dummy_data.dart'; //Just dummy data file for passing and testing data from model
+
 class Basket extends StatelessWidget {
-  const Basket({
+  Basket({
     Key? key,
   }) : super(key: key);
 
@@ -16,23 +23,28 @@ class Basket extends StatelessWidget {
       children: [
         // view all text button
         Align(
-            alignment: Alignment.centerRight,
-            child: TextButton(
-                onPressed: () {},
-                child: const Text(
-                  "view all",
-                  style: TextStyle(
-                      fontSize: 16,
-                      fontWeight: FontWeight.w500,
-                      decoration: TextDecoration.underline,
-                      color: Colors.black),
-                ))),
+          alignment: Alignment.centerRight,
+          child: TextButton(
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: ((context) => ViewAllScreen())));
+            },
+            child: const Text(
+              "view all",
+              style: TextStyle(
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  decoration: TextDecoration.underline,
+                  color: Colors.black),
+            ),
+          ),
+        ),
 
         //Horizontal Scrollable cards
         SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: Row(
-            children: const <Widget>[
+            children: <Widget>[
               SizedBox(
                 width: 20,
               ),
@@ -51,27 +63,30 @@ class Basket extends StatelessWidget {
 }
 
 class OrderCard extends StatelessWidget {
-  const OrderCard({
+  OrderCard({
     Key? key,
   }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    //dummy data
-    List<String> order = [
-      "Laundry in process Thanks for waiting",
-      "Out for delivery",
-      "Deelivered",
-      "Delivered"
-    ];
-
     return SizedBox(
       height: 140,
       child: ListView.separated(
-        itemCount: order.length,
+        itemCount: orderdetails.length,
         scrollDirection: Axis.horizontal,
         shrinkWrap: true,
         itemBuilder: (BuildContext context, int index) {
+          String status = "";
+          if (orderdetails[index].status == Status.delivered) {
+            status = "delivered";
+          } else if (orderdetails[index].status == Status.outForDelivery) {
+            status = "Out for delivery";
+          } else if (orderdetails[index].status == Status.orderPlaced) {
+            status = "Waiting for Delivery Agent";
+          } else if (orderdetails[index].status ==
+              Status.waitingForConfirmation) {
+            status = "Waiting for confirmation";
+          }
           return Container(
               width: 180,
               decoration: BoxDecoration(
@@ -81,11 +96,19 @@ class OrderCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
                   ElevatedButton(
-                    onPressed: () {},
+                    onPressed: () {
+                      Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => BillScreen(
+                              singleOrder: orderdetails[index],
+                            ),
+                          ));
+                    },
                     child: Text(
                       "Review",
                       style: TextStyle(
-                          fontSize: 12,
+                          fontSize: 10,
                           fontWeight: FontWeight.w400,
                           color: Colors.black),
                     ),
@@ -97,8 +120,8 @@ class OrderCard extends StatelessWidget {
                   ),
                   const Spacer(),
                   Text(
-                    order[index],
-                    style: TextStyle(fontSize: 13),
+                    status,
+                    style: TextStyle(fontSize: 12),
                   ),
                 ],
               ));
@@ -112,9 +135,15 @@ class OrderCard extends StatelessWidget {
 }
 
 class AddBasketCard extends StatelessWidget {
-  const AddBasketCard({
+  AddBasketCard({
     Key? key,
   }) : super(key: key);
+  List<Service> sampleService = [
+    Service(amount: 100, service: "Washing"),
+    Service(amount: 100, service: "Dry cleaning"),
+    Service(amount: 200, service: "Iron"),
+    Service(amount: 130, service: "Wash and fold")
+  ];
 
   @override
   Widget build(BuildContext context) {
@@ -144,14 +173,8 @@ class AddBasketCard extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: ((context) =>
-                                ChangeNotifierProvider<OrderScreen1ViewModel>(
-                                  create: ((context) {
-                                    return OrderScreen1ViewModel();
-                                  }),
-                                  builder: ((context, child) {
-                                    return SafeArea(child: OrderScreen1());
-                                  }),
+                            builder: ((context) => OrderScreen1(
+                                  service: sampleService,
                                 ))));
                   },
                   child: const Text(
