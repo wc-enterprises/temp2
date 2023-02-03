@@ -1,0 +1,122 @@
+
+{
+   "services": [
+    {
+    "name": "Regular Wash Upto 3kg",
+    "category": "Washing",
+    "unitPrice": 150
+    },
+    {
+    "name": "Regular Wash 3kg - 4kg",
+    "category": "Washing",
+    "unitPrice": 200
+    },
+    {
+    "name": "Regular Wash 4kg - 5kg",
+    "category": "Washing",
+    "unitPrice": 250
+    },
+    {
+    "name": "Regular Wash 5kg - 6kg",
+    "category": "Washing",
+    "unitPrice": 300
+    },
+    {
+    "name": "Regular Wash Above 6kg",
+    "category": "Washing",
+    "unitPrice": 50
+    },
+    {
+    "name": "Eco - Friendly Wash Upto 3kg",
+    "category": "Washing",
+    "unitPrice": 200
+    },
+    {
+    "name": "Eco - Friendly Wash 3kg - 4kg",
+    "category": "Washing",
+    "unitPrice": 250
+    },
+    {
+    "name": "Eco - Friendly Wash 4kg - 5kg",
+    "category": "Washing",
+    "unitPrice": 300
+    },
+    {
+    "name": "Eco - Friendly Wash 5kg - 6kg",
+    "category": "Washing",
+    "unitPrice": 350
+    },
+    {
+    "name": "Eco - Friendly Wash Above 6kg",
+    "category": "Washing",
+    "unitPrice": 60
+    },
+    {
+    "name": "Premium Wash Upto 4kg",
+    "category": "Washing",
+    "unitPrice": 300
+    },
+    {
+    "name": "Premium Wash Upto 6kg",
+    "category": "Washing",
+    "unitPrice": 400
+    },
+    {
+    "name": "Bedsheets and Curtains",
+    "category": "Washing",
+    "unitPrice": 75
+    },
+    {
+    "name": "Single Blanket",
+    "category": "Washing",
+    "unitPrice": 80
+    },
+    {
+    "name": "Double Blanket",
+    "category": "Washing",
+    "unitPrice": 100
+    },
+    {
+    "name": "Carpet Cleaning",
+    "category": "Washing",
+    "unitPrice": 20
+    },
+    {
+    "name": "Bag and Jacket",
+    "category": "Washing",
+    "unitPrice": 100
+    },
+    {
+    "name": "Steam Press - T-Shirt, Shirt & Pant",
+    "category": "Steam Iron",
+    "unitPrice": 12
+    },
+    {
+    "name": "Steam Press - Kurta and Long Tops",
+    "category": "Steam Iron",
+    "unitPrice": 15
+    },
+    {
+    "name": "Steam Press - Cotton Saree",
+    "category": "Steam Iron",
+    "unitPrice": 50
+    },
+    {
+    "name": "Steam Press - Silk Saree",
+    "category": "Steam Iron",
+    "unitPrice": 60
+    },
+    
+      {    "name": "Dry Clean - T-Shirt, Shirt & Pant",    "category": "Dry Clean",    "unitPrice": 120  },
+        {    "name": "Dry Clean - Kurta and Tops",    "category": "Dry Clean",    "unitPrice": 150  }, 
+         {    "name": "Dry Clean - Saree",    "category": "Dry Clean",    "unitPrice": 250  }, 
+          {    "name": "Dry Clean - Blazer",    "category": "Dry Clean",    "unitPrice": 250  }, 
+           {    "name": "Dry Clean - Suit",    "category": "Dry Clean",    "unitPrice": 300  }, 
+            {    "name": "Dry Clean - Blankets",    "category": "Dry Clean",    "unitPrice": 400  }, 
+             {    "name": "Dry Clean - Others",    "category": "Dry Clean",    "unitPrice": 0  }
+
+    
+    
+    
+    ]
+}

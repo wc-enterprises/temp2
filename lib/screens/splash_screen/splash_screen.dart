@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:laundry_app/screens/login_screen/login_screen.dart';
+import 'package:laundry_app/screens/order_screen.dart/order_screen.dart';
 import 'dart:async';
 
 import '../home_screen/home_screen.dart';
@@ -15,7 +16,7 @@ class SplashScreenState extends State<SplashScreen> {
   void initState() {
     super.initState();
     Timer(
-        Duration(milliseconds: 2500),
+        Duration(milliseconds: 1500),
         () => Navigator.pushReplacement(
             context,
             MaterialPageRoute(

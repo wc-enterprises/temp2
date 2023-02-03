@@ -12,7 +12,7 @@ class BillCardUpdated extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Service> service = orderDetails.selectedService;
+    List<Service> service = [];
     bool billGenerated = false;
     if (orderDetails != 0) {
       billGenerated = true;
@@ -152,12 +152,12 @@ class BillCardUpdated extends StatelessWidget {
 
   List<Widget> serviceText() {
     return List.generate(
-        orderDetails.selectedService.length,
+        orderDetails.selectedService!.length,
         ((index) => Container(
               margin: EdgeInsets.only(top: 20),
               child: Row(
                 children: [
-                  Text(orderDetails.selectedService[index].service,
+                  Text(orderDetails.selectedService![index].category.toString(),
                       style: TextStyle(
                           fontSize: 12,
                           fontWeight: FontWeight.w600,

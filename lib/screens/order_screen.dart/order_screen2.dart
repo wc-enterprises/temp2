@@ -34,10 +34,10 @@ class _OrderScreen2State extends State<OrderScreen2> {
   ];
   int selectedIndex = -1;
   List<Service> sampleService = [
-    Service(amount: 100, service: "Washing", boxColor: Color(0xff3B4158)),
-    Service(amount: 100, service: "Dry cleaning", boxColor: Color(0xff3B4158)),
-    Service(amount: 200, service: "Ironing", boxColor: Color(0xff3B4158)),
-    Service(amount: 130, service: "Wash and fold", boxColor: Color(0xff3B4158))
+    Service(service: "Washing", boxColor: Color(0xff3B4158)),
+    Service(service: "Dry cleaning", boxColor: Color(0xff3B4158)),
+    Service(service: "Ironing", boxColor: Color(0xff3B4158)),
+    Service(service: "Wash and fold", boxColor: Color(0xff3B4158))
   ];
 
   //////////////////////////////////////////////////////////////

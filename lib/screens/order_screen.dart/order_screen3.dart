@@ -9,6 +9,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:laundry_app/models/address_model.dart';
 import 'package:laundry_app/models/order_model.dart';
 import 'package:laundry_app/models/service_model.dart';
+import 'package:laundry_app/models/sub_service.dart';
 import 'package:laundry_app/models/user_model.dart';
 import 'package:laundry_app/screens/home_screen/home_screen.dart';
 import 'package:laundry_app/screens/order_screen.dart/orderScreen1_viewmodel.dart';
@@ -22,15 +23,16 @@ class OrderScreen3 extends StatefulWidget {
   Address? deliveryAddress;
   String? pickupTimeslot;
   String? pickupDate;
-  String? deliveryDate;
-  String? deliveryTimeSlot;
+  List<String>? addOns;
+  List<String>? deliveryInstructions;
+
   OrderScreen3(
       {super.key,
+      this.addOns,
+      this.deliveryInstructions,
       required this.deliveryAddress,
       required this.pickupAddress,
-      required this.deliveryDate,
       required this.pickupDate,
-      required this.deliveryTimeSlot,
       required this.pickupTimeslot});
 
   @override
@@ -38,20 +40,22 @@ class OrderScreen3 extends StatefulWidget {
 }
 
 class _OrderScreen3State extends State<OrderScreen3> {
-  List<Service> selectedServices = [];
+  List<Product> selectedServices = [];
   late String bookingId;
   @override
   void initState() {
     bookingId = Uuid().v4();
+    print(widget.addOns);
     // TODO: implement initState
     super.initState();
   }
 
+  String? phone = FirebaseAuth.instance.currentUser!.phoneNumber;
+
   @override
   Widget build(BuildContext context) {
     return Consumer<OrderScreen1ViewModel>(builder: ((context, _, child) {
-      selectedServices =
-          context.watch<OrderScreen1ViewModel>().selectedServices;
+      selectedServices = context.watch<OrderScreen1ViewModel>().newService;
       print("________________________");
       print("________________________");
 
@@ -114,31 +118,32 @@ class _OrderScreen3State extends State<OrderScreen3> {
                         child: Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            const Padding(
+                            Padding(
                                 padding: EdgeInsets.only(
                                     top: 10, left: 5, bottom: 10),
-                                child: Text("Shankar",
+                                child: Text("Order ID : $bookingId",
                                     style: TextStyle(
                                         fontWeight: FontWeight.w600))),
                             const DottedLine(
                               dashColor: Color(0xff675E89),
                               dashLength: 5,
                             ),
+                            SizedBox(height: 8),
+                            Text("Selected Services",
+                                style: TextStyle(
+                                    color: Color(0xff486D98),
+                                    fontSize: 15,
+                                    fontWeight: FontWeight.w500)),
                             Container(
                               child: Column(children: serviceText()),
                             ),
-
-                            // serviceText("Regular wash", "No of pieces:10"),
-                            // serviceText("Iron", "No of pieces:10"),
-                            // serviceText("Dry clean", "No of pieces:10"),
                             text("Pick-up address",
                                 widget.pickupAddress!.addressTitle),
-                            text("Pick-up date and time",
-                                "${widget.pickupDate}, ${widget.pickupTimeslot}"),
+                            text("Pick-up date", "${widget.pickupDate}"),
+                            text("Pick-up time-slot",
+                                "${widget.pickupTimeslot}"),
                             text("Delivery address",
                                 widget.deliveryAddress!.addressTitle),
-                            text("Pick-up date and time",
-                                "${widget.deliveryDate}, ${widget.deliveryTimeSlot}"),
                             const Padding(
                               padding: EdgeInsets.only(top: 30),
                               child: Text(
@@ -223,15 +228,9 @@ class _OrderScreen3State extends State<OrderScreen3> {
               margin: EdgeInsets.only(top: 10),
               child: Row(
                 children: [
-                  Text(selectedServices[index].service,
-                      style: TextStyle(
-                          fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff486D98))),
-                  Spacer(),
-                  Text("No of items: ${selectedServices[index].piece?.toInt()}",
+                  Text(" ${selectedServices[index].name}",
                       style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 13))
+                          TextStyle(fontWeight: FontWeight.w500, fontSize: 13))
                 ],
               ),
             )));
@@ -244,8 +243,7 @@ class _OrderScreen3State extends State<OrderScreen3> {
       phoneNumber: firebaseUser!.phoneNumber,
       id: bookingId,
       userName: firebaseUser!.uid,
-      pickTimeSlot: widget.deliveryTimeSlot!,
-      deliveryTimeSlot: widget.pickupTimeslot!,
+      pickTimeSlot: widget.pickupTimeslot!,
       pickUpAddress: widget.pickupAddress!,
       deliveryAddress: widget.deliveryAddress!,
       selectedService: selectedServices,

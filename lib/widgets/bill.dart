@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/material.dart';
@@ -5,6 +6,7 @@ import 'package:dotted_line/dotted_line.dart';
 import 'package:flutter_custom_clippers/flutter_custom_clippers.dart';
 import 'package:laundry_app/models/order_model.dart';
 import 'package:laundry_app/models/service_model.dart';
+import 'package:laundry_app/models/sub_service.dart';
 
 class BillCard extends StatelessWidget {
   Order orderDetails;
@@ -12,7 +14,8 @@ class BillCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<Service> service = orderDetails.selectedService;
+    List<Product> service = [];
+    String? phone = FirebaseAuth.instance.currentUser!.phoneNumber;
 
     return ClipPath(
       clipper: PointsClipper(),
@@ -30,14 +33,19 @@ class BillCard extends StatelessWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Padding(
+                Padding(
                     padding: EdgeInsets.only(top: 10, left: 5, bottom: 10),
-                    child: Text("Shankar",
+                    child: Text("Phone number : $phone",
                         style: TextStyle(fontWeight: FontWeight.w600))),
                 const DottedLine(
                   dashColor: Color(0xff675E89),
                   dashLength: 5,
                 ),
+                Text("Services Added",
+                    style: TextStyle(
+                        fontSize: 12,
+                        fontWeight: FontWeight.w500,
+                        color: Color(0xff3B4158))),
                 Container(
                   child: Column(children: serviceText()),
                 ),
@@ -82,20 +90,16 @@ class BillCard extends StatelessWidget {
 
   List<Widget> serviceText() {
     return List.generate(
-        orderDetails.selectedService.length,
+        orderDetails.selectedService!.length,
         ((index) => Container(
               margin: EdgeInsets.only(top: 10),
               child: Row(
                 children: [
-                  Text(orderDetails.selectedService[index].service,
+                  Text(orderDetails.selectedService![index].name,
                       style: TextStyle(
                           fontSize: 12,
-                          fontWeight: FontWeight.w600,
-                          color: Color(0xff486D98))),
-                  Spacer(),
-                  Text("No of items:10",
-                      style:
-                          TextStyle(fontWeight: FontWeight.w600, fontSize: 13))
+                          fontWeight: FontWeight.w500,
+                          color: Colors.black)),
                 ],
               ),
             )));

@@ -134,7 +134,7 @@ class _OrderScreen1State extends State<OrderScreen1> {
   bool checkService() {
     bool check = true;
     for (var service in selectedService!) {
-      if (service.piece == null) {
+      if (service.service == null) {
         check = false;
       }
     }

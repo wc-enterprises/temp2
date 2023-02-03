@@ -15,42 +15,39 @@ import '../../dummy_data.dart'; //just dummy data for passing values from model
 class ViewAllScreen extends StatelessWidget {
   const ViewAllScreen({Key? key}) : super(key: key);
 
-  
   @override
   Widget build(BuildContext context) {
-   
-
-    
     return Scaffold(
-      
-      body:Stack(
+      body: Stack(
         children: [
           Positioned(
             height: MediaQuery.of(context).size.height * 0.35,
             width: MediaQuery.of(context).size.width,
             child: Container(
-            
-            
-            decoration: const BoxDecoration(
-              color: Color(0xff212427),
-              borderRadius: BorderRadius.only(bottomLeft: Radius.circular(20), bottomRight: Radius.circular(20)),
-            
-            ),
-            child: SafeArea(
-              child: Align(
-                alignment: Alignment.topLeft,
-                child: IconButton(onPressed: (){Navigator.pop(context);}, icon: Icon(Icons.arrow_back, color: Colors.white,),)),
-            ),
-            
-            
+              decoration: const BoxDecoration(
+                color: Color(0xff3B4158),
+                borderRadius: BorderRadius.only(
+                    bottomLeft: Radius.circular(20),
+                    bottomRight: Radius.circular(20)),
               ),
+              child: SafeArea(
+                child: Align(
+                    alignment: Alignment.topLeft,
+                    child: IconButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      icon: Icon(
+                        Icons.arrow_back,
+                        color: Colors.white,
+                      ),
+                    )),
+              ),
+            ),
           ),
-            ViewAllTabBar(),
+          ViewAllTabBar(),
         ],
       ),
-    );    
+    );
   }
 }
-
-
-

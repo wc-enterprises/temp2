@@ -1,3 +1,5 @@
+import 'package:laundry_app/models/sub_service.dart';
+
 import 'service_model.dart';
 import 'address_model.dart';
 
@@ -6,15 +8,17 @@ class Order {
 
   String? userName;
   String pickTimeSlot;
-  String deliveryTimeSlot;
+  String? deliveryTimeSlot;
   Address pickUpAddress;
   Address deliveryAddress;
   String? phoneNumber;
   Status? status;
-  List<Service> selectedService;
+  List<Product>? selectedService;
   String? pickupDate;
   String? deliveryDate;
   String? orderStatus;
+  List<String>? addOn;
+  List<String>? deliveryInstruction;
   // List<Map<Service, double>>?
   //     serviceAmount; //service charge per kg/piece * quantity(number of piece or number of kg)
   // late double? totalServiceAmount;
@@ -28,13 +32,16 @@ class Order {
     required this.pickTimeSlot,
     this.pickupDate,
     this.deliveryDate,
-    required this.deliveryTimeSlot,
+    this.deliveryTimeSlot,
     required this.pickUpAddress,
     required this.deliveryAddress,
     this.phoneNumber,
     this.status,
-    required this.selectedService,
+    this.selectedService,
     this.orderStatus,
+    this.addOn,
+    this.deliveryInstruction,
+
     // this.serviceAmount,
     // this.deliveryFee,
     // this.totalAmount,
@@ -62,7 +69,11 @@ class Order {
         deliveryTimeSlot: order["deliveryTimeslot"],
         pickUpAddress: order["pickupAddress"],
         deliveryAddress: order["deliveryAddress"],
-        selectedService: serviceFromJson(order["services"]));
+        addOn: List.from(order["addOn"]),
+        deliveryInstruction: List.from(order["deliveryInstructions"])
+
+        // selectedService: serviceFromJson(order["services"])
+        );
   }
 
   toJson() {
@@ -75,7 +86,9 @@ class Order {
       "pickupAddress": pickUpAddress.toJson(),
       "deliveryTimeSlot": deliveryTimeSlot,
       "deliveryAddress": deliveryAddress.toJson(),
-      "services": selectedServicesToJson(selectedService),
+      "addOn": addOn,
+      "deliveryInstruction": deliveryInstruction
+      // "services": selectedServicesToJson(selectedService),
     };
   }
 

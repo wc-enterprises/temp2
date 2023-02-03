@@ -79,9 +79,7 @@ class _ServiceCheckboxState extends State<ServiceCheckbox> {
                         color: widget.service[index].textColor,
                         size: 16,
                       ),
-                      onCountChange: (count) {
-                        widget.service[index].piece = count;
-                      },
+                      onCountChange: (count) {},
                       onIncrement: (count) {},
                       onDecrement: (count) {},
                     ),

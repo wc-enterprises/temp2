@@ -2,6 +2,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:laundry_app/models/order_model.dart';
 import 'package:laundry_app/widgets/bill_list.dart';
 import '../dummy_data.dart';
 
@@ -21,7 +22,7 @@ class _ViewAllTabBarState extends State<ViewAllTabBar>
   @override
   void initState() {
     getDataFromFirebase();
-    _tabController = TabController(length: 2, vsync: this);
+    _tabController = TabController(length: 3, vsync: this);
     super.initState();
   }
 
@@ -57,17 +58,20 @@ class _ViewAllTabBarState extends State<ViewAllTabBar>
                         borderRadius: BorderRadius.circular(
                           25.0,
                         ),
-                        color: Color(0xffD7EF7D),
+                        color: Color(0xff486D98),
                       ),
-                      labelColor: Colors.black,
+                      labelColor: Colors.white,
                       unselectedLabelColor: Colors.white,
                       tabs: const [
                         Tab(
-                          text: "Ongoing Laundry",
+                          text: "Ongoing",
                         ),
                         Tab(
-                          text: "Completed Delivery",
-                        )
+                          text: "Completed",
+                        ),
+                        Tab(
+                          text: "Cancelled",
+                        ),
                       ])),
               Expanded(
                 child: TabBarView(
@@ -76,6 +80,10 @@ class _ViewAllTabBarState extends State<ViewAllTabBar>
                     BillList(
                       orderdetails: orderdetails,
                       isDeleveredVisible: false,
+                    ),
+                    BillList(
+                      orderdetails: orderdetails,
+                      isDeleveredVisible: true,
                     ),
                     BillList(
                       orderdetails: orderdetails,
@@ -93,12 +101,15 @@ class _ViewAllTabBarState extends State<ViewAllTabBar>
   getDataFromFirebase() {
     FirebaseFirestore db = FirebaseFirestore.instance;
     String uid = FirebaseAuth.instance.currentUser!.uid;
-    db.collection("booking").snapshots().listen((event) {
-      final cities = [];
-      for (var doc in event.docs) {
-        cities.add(doc.data()["userId"]);
+    db.collection("bookings").doc(uid).snapshots().listen((event) {
+      List<Order> orders = [];
+
+      print(event.data());
+
+      for (var i = 0; i < event.data()!["bookings"].length; i++) {
+        orders.add(Order.fromJson(event.data()!["bookings"][i]));
       }
-      print("cities in CA: ${cities.join(", ")}");
+      print(orders);
     });
   }
 }

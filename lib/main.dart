@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:laundry_app/isar_service.dart';
+import 'package:laundry_app/models/service_model.dart';
 import 'dart:async';
 import 'package:laundry_app/screens/home_screen/home_screen.dart';
 import 'package:laundry_app/screens/login_screen/login_screen.dart';
@@ -44,7 +45,7 @@ class _MyAppState extends State<MyApp> {
   void initState() {
     user = FirebaseAuth.instance.authStateChanges().listen((user) {});
     // FirebaseAuth.instance.signOut();
-
+    Service.getService();
     // TODO: implement initState
     IsarService().openIsar();
     super.initState();

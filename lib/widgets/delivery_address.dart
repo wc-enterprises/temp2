@@ -2,6 +2,7 @@ import 'package:date_picker_timeline/date_picker_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
+import 'package:flutter_multi_select_items/flutter_multi_select_items.dart';
 import 'package:laundry_app/isar_service.dart';
 import 'package:laundry_app/models/address_model.dart';
 import 'package:laundry_app/models/service_model.dart';
@@ -29,6 +30,10 @@ class DeliveryAddress extends StatefulWidget {
 }
 
 class _DeliveryAddressState extends State<DeliveryAddress> {
+  final MultiSelectController<String> addOnController = MultiSelectController();
+  final MultiSelectController<String> deliveryController =
+      MultiSelectController();
+
   Address? deliveryAddress;
   int deliveryIndex = -1;
   String? deliveryDate;
@@ -48,11 +53,33 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
     super.initState();
   }
 
+  //List<String> text = ["Avoid calling", "Leave at door", "Leave with security"];
+  List<bool> isSelected = [false, false, false];
+  List<String> _items = [
+    "Dettol wash : ₹30",
+    "Express service : ₹99",
+    "Stain removal : ₹30",
+    "Lint removal : ₹30"
+  ];
+  List<String> deliveryInstructions = [
+    "Avoid calling",
+    "Leave at door",
+    "Leave with security"
+  ];
+  List<IconData> icons = [
+    Icons.phone_disabled,
+    Icons.door_front_door,
+    Icons.person,
+  ];
+  List<String> instructionsList = [];
+  List<String> addOnList = [];
+
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: EdgeInsets.only(top: 24),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Container(
             decoration: BoxDecoration(
@@ -113,6 +140,33 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
                   )
                 ]),
           ),
+          SizedBox(height: 32),
+
+          Text(
+            "Add On (optional)",
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+          ),
+          SizedBox(height: 16),
+          addOn(),
+          SizedBox(height: 32),
+          Text(
+            "Delivery instructions (optional)",
+            style: TextStyle(
+                color: Colors.white, fontSize: 20, fontWeight: FontWeight.w500),
+          ),
+          SizedBox(height: 16),
+          deliveryInstruction(),
+          // Row(
+          //     crossAxisAlignment: CrossAxisAlignment.center,
+          //     children: List.generate(
+          //       3,
+          //       ((index) => Container(
+          //             child: check(
+          //                 icons[index], text[index], index, isSelected[index]),
+          //           )),
+          //     )),
+          SizedBox(height: 16),
           //  dateTime(),
           SizedBox(height: 24),
           Center(
@@ -128,7 +182,6 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
                 onPressed: () {
                   if (widget.pickupAddress != null &&
                       deliveryAddress != null &&
-                      deliveryTimeSlot != null &&
                       widget.timeSlots != null) {
                     Navigator.push(
                         context,
@@ -136,10 +189,10 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
                             builder: ((context) => OrderScreen3(
                                   pickupTimeslot: widget.pickupTimeSlot,
                                   deliveryAddress: deliveryAddress!,
-                                  deliveryTimeSlot: deliveryTimeSlot,
                                   pickupAddress: widget.pickupAddress!,
-                                  deliveryDate: deliveryDate,
                                   pickupDate: widget.pickupdate,
+                                  addOns: addOnList,
+                                  deliveryInstructions: instructionsList,
                                 ))));
                   } else {
                     ScaffoldMessenger.of(context).showSnackBar(
@@ -351,6 +404,124 @@ class _DeliveryAddressState extends State<DeliveryAddress> {
               ),
             ),
           )),
+    );
+  }
+
+  addOn() {
+    return MultiSelectCheckList(
+      maxSelectableCount: 5,
+      textStyles: const MultiSelectTextStyles(
+        selectedTextStyle: TextStyle(
+            fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
+        disabledTextStyle: TextStyle(
+            fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500),
+      ),
+      itemsDecoration: MultiSelectDecorations(
+          selectedDecoration: BoxDecoration(color: Colors.transparent)),
+      listViewSettings: ListViewSettings(
+          physics: NeverScrollableScrollPhysics(),
+          separatorBuilder: (context, index) => const Divider(
+                height: 0,
+              )),
+      controller: addOnController,
+      items: List.generate(
+          _items.length,
+          (index) => CheckListCard(
+              textStyles: const MultiSelectItemTextStyles(
+                selectedTextStyle: TextStyle(
+                  color: Colors.black,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 16,
+                ),
+                disabledTextStyle:
+                    TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              ),
+              value: _items[index],
+              title: Text(
+                _items[index],
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+              selectedColor: Colors.transparent,
+              checkColor: Color(0xff486D98),
+              selected: index == 3,
+              enabled: !(index == 5),
+              enabledColor: Colors.white,
+              checkBoxBorderSide: const BorderSide(color: Colors.white),
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(5)))),
+      onChange: (allSelectedItems, selectedItem) {
+        addOnList.addAll(allSelectedItems);
+        print(addOnList);
+      },
+      onMaximumSelected: (allSelectedItems, selectedItem) {},
+    );
+  }
+
+  deliveryInstruction() {
+    return MultiSelectCheckList(
+      maxSelectableCount: 5,
+      textStyles: const MultiSelectTextStyles(
+        selectedTextStyle: TextStyle(
+            fontSize: 16, color: Colors.black, fontWeight: FontWeight.w500),
+        disabledTextStyle: TextStyle(
+            fontSize: 16, color: Colors.white, fontWeight: FontWeight.w500),
+      ),
+      itemsDecoration: MultiSelectDecorations(
+          selectedDecoration: BoxDecoration(color: Colors.transparent)),
+      listViewSettings: ListViewSettings(
+          physics: NeverScrollableScrollPhysics(),
+          separatorBuilder: (context, index) => const Divider(
+                height: 0,
+              )),
+      controller: deliveryController,
+      items: List.generate(
+        deliveryInstructions.length,
+        (index) => CheckListCard(
+          textStyles: const MultiSelectItemTextStyles(
+            selectedTextStyle: TextStyle(
+              color: Colors.black,
+              fontWeight: FontWeight.w500,
+              fontSize: 16,
+            ),
+            disabledTextStyle:
+                TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+          ),
+          value: deliveryInstructions[index],
+          title: Row(
+            children: [
+              Icon(
+                icons[index],
+                color: Colors.white,
+              ),
+              SizedBox(width: 8),
+              Text(
+                deliveryInstructions[index],
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                ),
+              ),
+            ],
+          ),
+          selectedColor: Colors.transparent,
+          checkColor: Color(0xff486D98),
+          selected: index == 3,
+          enabled: !(index == 5),
+          enabledColor: Colors.white,
+          checkBoxBorderSide: const BorderSide(color: Colors.white),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(5),
+          ),
+        ),
+      ),
+      onChange: (allSelectedItems, selectedItem) {
+        instructionsList.addAll(allSelectedItems);
+        print(instructionsList);
+      },
+      onMaximumSelected: (allSelectedItems, selectedItem) {},
     );
   }
 }

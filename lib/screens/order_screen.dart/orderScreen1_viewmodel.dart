@@ -2,10 +2,24 @@ import 'package:flutter/material.dart';
 import 'package:laundry_app/models/address_model.dart';
 import 'package:laundry_app/models/order_model.dart';
 import 'package:laundry_app/models/service_model.dart';
+import 'package:laundry_app/models/sub_service.dart';
 
 class OrderScreen1ViewModel extends ChangeNotifier {
 /////////////////////////////////////////
   List<Service> selectedServices = [];
+
+  List<Product> newService = [];
+
+  addService(Product service) {
+    newService.add(service);
+    print(newService);
+    notifyListeners();
+  }
+
+  deleteService(Product service) {
+    newService.remove(service);
+    notifyListeners();
+  }
 
   selectService(List<Service> service) {
     if (selectedServices.length != 0) {

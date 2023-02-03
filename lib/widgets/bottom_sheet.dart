@@ -27,6 +27,7 @@ class _AddressBottomSheetState extends State<AddressBottomSheet> {
   TextEditingController landmarkController = TextEditingController();
   TextEditingController pincodeController = TextEditingController();
   TextEditingController titleController = TextEditingController();
+  TextEditingController districtController = TextEditingController();
 
   int selectedIndex = 0;
   String? selectedLocation;

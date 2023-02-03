@@ -139,10 +139,10 @@ class AddBasketCard extends StatelessWidget {
     Key? key,
   }) : super(key: key);
   List<Service> sampleService = [
-    Service(amount: 100, service: "Washing"),
-    Service(amount: 100, service: "Dry cleaning"),
-    Service(amount: 200, service: "Iron"),
-    Service(amount: 130, service: "Wash and fold")
+    Service(service: "Washing"),
+    Service(service: "Dry cleaning"),
+    Service(service: "Iron"),
+    Service(service: "Wash and fold")
   ];
 
   @override
@@ -173,8 +173,8 @@ class AddBasketCard extends StatelessWidget {
                     Navigator.push(
                         context,
                         MaterialPageRoute(
-                            builder: ((context) => OrderScreen1(
-                                  service: sampleService,
+                            builder: ((context) => OrderScreen(
+                                //service: sampleService,
                                 ))));
                   },
                   child: const Text(

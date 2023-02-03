@@ -30,10 +30,6 @@ List<Order> orderdetails = [
     deliveryTimeSlot: "25 Nov 2022,9am-12pm",
     pickUpAddress: address[0],
     deliveryAddress: address[1],
-    selectedService: [
-      Service(service: "Wash", amount: 100),
-      Service(service: "Wash and iron", amount: 150)
-    ],
     status: Status.delivered,
   ),
   Order(
@@ -42,10 +38,6 @@ List<Order> orderdetails = [
     deliveryTimeSlot: "25 Nov 2022,9am-12pm",
     pickUpAddress: address[0],
     deliveryAddress: address[1],
-    selectedService: [
-      Service(service: "dry cleaning", amount: 100),
-      Service(service: "Washiing", amount: 150)
-    ],
     status: Status.orderPlaced,
   ),
   Order(
@@ -54,10 +46,6 @@ List<Order> orderdetails = [
     deliveryTimeSlot: "25 Nov 2022,9am-12pm",
     pickUpAddress: address[0],
     deliveryAddress: address[1],
-    selectedService: [
-      Service(service: "wash", amount: 100),
-      Service(service: "dry", amount: 150)
-    ],
     status: Status.outForDelivery,
   ),
   Order(
@@ -66,10 +54,6 @@ List<Order> orderdetails = [
     deliveryTimeSlot: "25 Nov 2022,9am-12pm",
     pickUpAddress: address[0],
     deliveryAddress: address[1],
-    selectedService: [
-      Service(service: "dry cleaning", amount: 100),
-      Service(service: "washing", amount: 150)
-    ],
     status: Status.delivered,
   ),
   Order(
@@ -78,10 +62,6 @@ List<Order> orderdetails = [
     deliveryTimeSlot: "25 Sep 2022,9am-12pm",
     pickUpAddress: address[0],
     deliveryAddress: address[1],
-    selectedService: [
-      Service(service: "wash", amount: 100),
-      Service(service: "dry", amount: 150)
-    ],
     status: Status.waitingForConfirmation,
   ),
 ];
