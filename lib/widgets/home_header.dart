@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:laundry_app/screens/address_screen/address_screen.dart';
+import 'package:laundry_app/screens/settings_screen/settings_screen.dart';
 
 class Header extends StatelessWidget {
   const Header({
@@ -50,7 +51,10 @@ class Header extends StatelessWidget {
           CircleAvatar(
               backgroundColor: Theme.of(context).secondaryHeaderColor,
               child: IconButton(
-                  onPressed: () {},
+                  onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: ((context) => SettingsScreen())));
+            },
                   icon: const Icon(
                     Icons.person_outline_rounded,
                     color: Colors.white,
